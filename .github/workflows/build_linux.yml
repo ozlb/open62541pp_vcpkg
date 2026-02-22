@@ -24,7 +24,7 @@ jobs:
 
     - name: Install open62541pp via vcpkg (static)
       run: |
-        ./vcpkg/vcpkg install open62541pp:x64-linux-static
+        ./vcpkg/vcpkg install open62541pp:x64-linux
 
     - name: Upload vcpkg installed folder
       uses: actions/upload-artifact@v4
