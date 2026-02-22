@@ -1,0 +1,28 @@
+name: Build open62541pp (Windows static)
+
+on:
+  workflow_dispatch:   # <-- only manual trigger
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Clone vcpkg
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git
+        cd vcpkg
+        .\bootstrap-vcpkg.bat
+
+    - name: Install open62541pp via vcpkg
+      run: |
+        .\vcpkg\vcpkg.exe install open62541pp:x64-windows-static
+
+    - name: Upload vcpkg installed folder
+      uses: actions/upload-artifact@v4
+      with:
+        name: open62541pp-x64-windows-static
+        path: vcpkg/installed/x64-windows-static/**
