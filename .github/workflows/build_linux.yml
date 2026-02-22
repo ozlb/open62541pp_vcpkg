@@ -25,6 +25,16 @@ jobs:
     - name: Install open62541pp via vcpkg (static by default)
       run: |
         ./vcpkg/vcpkg install open62541pp:x64-linux
+        
+    - name: Save vcpkg versions
+      run: |
+        ./vcpkg/vcpkg list > vcpkg-versions.txt
+    
+    - name: Upload version info
+      uses: actions/upload-artifact@v4
+      with:
+        name: vcpkg-versions
+        path: vcpkg-versions.txt
 
     - name: Upload vcpkg installed folder
       uses: actions/upload-artifact@v4
