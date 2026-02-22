@@ -1,0 +1,33 @@
+name: Build open62541pp (Linux static)
+
+on:
+  workflow_dispatch:   # manual trigger only
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install prerequisites
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential curl zip unzip
+
+    - name: Clone vcpkg
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git
+        cd vcpkg
+        ./bootstrap-vcpkg.sh
+
+    - name: Install open62541pp via vcpkg (static)
+      run: |
+        ./vcpkg/vcpkg install open62541pp:x64-linux-static
+
+    - name: Upload vcpkg installed folder
+      uses: actions/upload-artifact@v4
+      with:
+        name: open62541pp-x64-linux-static
+        path: vcpkg/installed/x64-linux-static/**
