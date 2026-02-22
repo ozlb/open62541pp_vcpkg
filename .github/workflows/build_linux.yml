@@ -1,7 +1,7 @@
 name: Build open62541pp (Linux static)
 
 on:
-  workflow_dispatch:   # manual trigger only
+  workflow_dispatch:
 
 jobs:
   build-linux:
@@ -22,12 +22,12 @@ jobs:
         cd vcpkg
         ./bootstrap-vcpkg.sh
 
-    - name: Install open62541pp via vcpkg (static)
+    - name: Install open62541pp via vcpkg (static by default)
       run: |
         ./vcpkg/vcpkg install open62541pp:x64-linux
 
     - name: Upload vcpkg installed folder
       uses: actions/upload-artifact@v4
       with:
-        name: open62541pp-x64-linux-static
-        path: vcpkg/installed/x64-linux-static/**
+        name: open62541pp-x64-linux
+        path: vcpkg/installed/x64-linux/**
