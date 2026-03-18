@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Install prerequisites
       run: |
@@ -31,13 +31,13 @@ jobs:
         ./vcpkg/vcpkg list > vcpkg-versions.txt
     
     - name: Upload version info
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: vcpkg-versions
         path: vcpkg-versions.txt
 
     - name: Upload vcpkg installed folder
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: open62541pp-x64-linux
         path: vcpkg/installed/x64-linux/**
