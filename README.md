@@ -18,10 +18,10 @@ These builds are generated automatically using GitHub Actions.
 Each artifact contains the full vcpkg installation folder for the selected triplet:
 
 ```
+debug/
 include/
 lib/
 share/
-tools/
 ```
 
 This means you can drop the folder directly into your project or point your
