@@ -1,0 +1,33 @@
+name: Build open62541pp (Windows static)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Check out vcpkg
+        uses: actions/checkout@v6
+        with:
+          repository: microsoft/vcpkg
+          path: vcpkg
+          persist-credentials: false
+
+      - name: Build open62541pp
+        working-directory: vcpkg
+        shell: pwsh
+        run: |
+          .\bootstrap-vcpkg.bat -disableMetrics
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\vcpkg.exe install open62541pp:x64-windows-static
+
+      - name: Upload vcpkg installation
+        uses: actions/upload-artifact@v6
+        with:
+          name: open62541pp-x64-windows-static
+          path: vcpkg/installed/x64-windows-static/
+          if-no-files-found: error
